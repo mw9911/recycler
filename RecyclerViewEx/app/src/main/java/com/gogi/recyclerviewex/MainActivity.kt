@@ -3,6 +3,10 @@ package com.gogi.recyclerviewex
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
+import com.deven.carousellayoutmanager.CenterZoomLayoutManager
 import com.gogi.ex_recyclerview.Todo
 import com.gogi.ex_recyclerview.TodoAdapter
 import com.gogi.recyclerviewex.databinding.ActivityMainBinding
@@ -43,7 +47,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        binding.todoList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val layoutManager: RecyclerView.LayoutManager = CenterZoomLayoutManager(
+            this, LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        val LM=LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.todoList)
+        binding.todoList.layoutManager = layoutManager
         binding.todoList.adapter = TodoAdapter(todos)
     }
 }
